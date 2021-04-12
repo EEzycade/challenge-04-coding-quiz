@@ -75,16 +75,13 @@ function renderQuestion() {
 function clickHandler() {
     console.log(quizQuestionsArray[questionNumber].correctAnswer);
     
-    if (quizQuestionsArray[0].correctAnswer === "string b" ||
-        quizQuestionsArray[1].correctAnswer === "string c" ||
-        quizQuestionsArray[2].correctAnswer === "string d" ||
-        quizQuestionsArray[3].correctAnswer === "string a") {
+    if (quizQuestionsArray[questionNumber].correctAnswer) {
         console.log('correct!');
         quizScore = quizScore + 15;
     }
     else {
         console.log('incorrect!');
-        timeLeft = timeLeft - 5;
+        timeLeft = timeLeft - 10;
     }
     // console.log("worked");
     questionNumber++
@@ -142,14 +139,14 @@ var endGame = function () {
     userInitialsInput.setAttribute("type", "text");
     userInitialsInput.setAttribute("id", "initials");
     userInitialsInput.setAttribute("name", "initials");
-    var userInitialsSubmit = document.createElement("button");
-    userInitialsSubmit.className = ("submit");
-    userInitialsSubmit.innerHTML = "Submit Score";
+    var userInitialsSubmit = document.createElement("input");
+    userInitialsSubmit.setAttribute("type", "submit");
+    userInitialsSubmit.setAttribute("value", "Submit");
+    
     // append finalScore to EndGameDiv, then append the form's input and label to the form, and the form to endGameDiv
     endGameDiv.appendChild(finalScore);
-    saveScoreForm.append(userInitialsLabel, userInitialsInput);
+    saveScoreForm.append(userInitialsLabel, userInitialsInput, userInitialsSubmit);
     endGameDiv.appendChild(saveScoreForm);
-    endGameDiv.appendChild(userInitialsSubmit);
     // userInitialsSubmit.addEventListener("click", displayHighScores);
 }
 
