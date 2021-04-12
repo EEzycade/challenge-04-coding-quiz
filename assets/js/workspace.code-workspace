@@ -1,0 +1,37 @@
+{
+	"folders": [
+		{
+			"path": "../../../../class-repo/uofa-virt-bo-fsf-pt-03-2021-u-b/05-third-party-apis/01-activities/02-jQuery-sandwich-click"
+		},
+		{
+			"path": "../.."
+		},
+		{
+			"path": "../../../challenge-03-random-pw-generator"
+		},
+		{
+			"path": "../../../taskinator"
+		},
+		{
+			"path": "../../../../class-repo/uofa-virt-bo-fsf-pt-03-2021-u-b/04-web-apis/01-activities/03-timers"
+		},
+		{
+			"path": "../../../robot-gladiators"
+		},
+		{
+			"path": "../../../../class-repo/uofa-virt-bo-fsf-pt-03-2021-u-b/05-third-party-apis/01-activities/03-bootstrap-card-layout"
+		},
+		{
+			"path": "../../../../class-repo/uofa-virt-bo-fsf-pt-03-2021-u-b/05-third-party-apis/01-activities/04-moment-js"
+		},
+		{
+			"path": "../../../../class-repo/uofa-virt-bo-fsf-pt-03-2021-u-b/05-third-party-apis/01-activities/05-jQuery-todo-localstorage"
+		},
+		{
+			"path": "../../../../4.4"
+		},
+		{
+			"path": "../../../../class-repo/uofa-virt-bo-fsf-pt-03-2021-u-b/04-web-apis/01-activities/04-local-storage"
+		}
+	]
+}
