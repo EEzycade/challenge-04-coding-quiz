@@ -38,7 +38,7 @@ var quizQuestionsArray = [
     },
     {
         question: "The two ways to create a function are...",
-        choices: ["A declaration and a salutation", "A declaration and an expression", "There's only 1 way", "You can make a function? Lol this class is crazy lmao"],
+        choices: ["A declaration and a salutation", "A declaration and an expression", "There's only 1 way", "You can make a function?"],
         correctAnswer: "1",
     },
 
