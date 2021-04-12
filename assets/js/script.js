@@ -20,22 +20,25 @@ var timerFunction;
 var quizQuestionsArray = [
     {
         question: "Where is the correct place to link to your JS file?",
-        choices: ["At the very top of your HTML", "The <body> section", "The <head> section", "None of the above"],
+        choices: ["At the very top of your HTML", "The body section", "The head section", "None of the above"],
         correctAnswer: "1",
     },
     {
-        question: "This is question 2",
-        choices: ["string a", "string b", "string c", "string d"],
+        question: "What is the scope that everything can access?",
+        choices: ["Universal", "scopeAll", "Global", "SCOPE"],
         correctAnswer: "2",
     },
     {
-        question: "This is question 3",
-        choices: ["string a", "string b", "string c", "string d"],
+        question: "What is the correct syntax to create an HTML element?",
+        choices: ["var blank = document.Element('h2');", 
+        "var blank = createEl h1", 
+        "Nike, Just Do It", 
+        "var blank = document.createElement('h2');"],
         correctAnswer: "3",
     },
     {
-        question: "This is question 4",
-        choices: ["string a", "string b", "string c", "string d"],
+        question: "The two ways to create a function are...",
+        choices: ["A declaration and a salutation", "A declaration and an expression", "There's only 1 way", "You can make a function? Lol this class is crazy lmao"],
         correctAnswer: "1",
     },
 
