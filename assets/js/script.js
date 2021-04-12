@@ -19,24 +19,24 @@ var timerFunction;
 // create array to store questions
 var quizQuestionsArray = [
     {
-        question: "This is question 1",
-        choices: ["string a", "string b", "string c", "string d"],
-        correctAnswer: 1,
+        question: "Where is the correct place to link to your JS file?",
+        choices: ["At the very top of your HTML", "The <body> section", "The <head> section", "None of the above"],
+        correctAnswer: "1",
     },
     {
         question: "This is question 2",
         choices: ["string a", "string b", "string c", "string d"],
-        correctAnswer: 2,
+        correctAnswer: "2",
     },
     {
         question: "This is question 3",
         choices: ["string a", "string b", "string c", "string d"],
-        correctAnswer: 3,
+        correctAnswer: "3",
     },
     {
         question: "This is question 4",
         choices: ["string a", "string b", "string c", "string d"],
-        correctAnswer: 0,
+        correctAnswer: "1",
     },
 
 ];
@@ -48,14 +48,21 @@ function renderQuestion() {
         var quizQuestionEl = document.createElement("h2");
         // create choice buttons
         var choiceAEl = document.createElement("button");
-        // choiceAEl.className = ("correctChoice");
+        
         var choiceBEl = document.createElement("button");
+        
         var choiceCEl = document.createElement("button");
+        
         var choiceDEl = document.createElement("button");
+        
         choiceAEl.innerHTML = quizQuestionsArray[questionNumber].choices[0];
+        choiceAEl.setAttribute('data-choice', 0);
         choiceBEl.innerHTML = quizQuestionsArray[questionNumber].choices[1];
+        choiceBEl.setAttribute('data-choice', 1);
         choiceCEl.innerHTML = quizQuestionsArray[questionNumber].choices[2];
+        choiceCEl.setAttribute('data-choice', 2);
         choiceDEl.innerHTML = quizQuestionsArray[questionNumber].choices[3];
+        choiceDEl.setAttribute('data-choice', 3);
         quizQuestionEl.innerHTML = quizQuestionsArray[questionNumber].question;
         var choicesDiv = document.createElement("div");
         choicesDiv.className = ("questionChoice");
@@ -72,10 +79,11 @@ function renderQuestion() {
 
 }
 
-function clickHandler() {
+function clickHandler(event) {
     console.log(quizQuestionsArray[questionNumber].correctAnswer);
-    
-    if (quizQuestionsArray[questionNumber].correctAnswer) {
+    var userAnswer = event.target.getAttribute('data-choice');
+    console.log(userAnswer);
+    if (quizQuestionsArray[questionNumber].correctAnswer === userAnswer) {
         console.log('correct!');
         quizScore = quizScore + 15;
     }
@@ -95,7 +103,7 @@ var createQuizContent = function () {
 }
 
 function timer() {
-    var timeLeft = 50;
+    timeLeft = 50;
 
 
     timerDisplay = document.createElement("h2");
