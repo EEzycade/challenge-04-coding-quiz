@@ -6,6 +6,8 @@ var timerEl = document.getElementById('countdown');
 
 var endGameDiv = document.getElementById('end-game-div');
 
+var highScoresDiv = document.getElementById('high-scores-div');
+
 var questionNumber = 0
 
 var timeLeft = 50;
@@ -13,6 +15,8 @@ var timeLeft = 50;
 var quizScore = 0;
 
 var timerFunction;
+
+var highScoresArray = [];
 
 
 
@@ -158,14 +162,45 @@ var endGame = function () {
     endGameDiv.appendChild(finalScore);
     saveScoreForm.append(userInitialsLabel, userInitialsInput, userInitialsSubmit);
     endGameDiv.appendChild(saveScoreForm);
-    // userInitialsSubmit.addEventListener("click", displayHighScores);
+
+    
+    // userInitialsSubmit.addEventListener("click", saveStuff());
 }
 
+function saveStuff() {
+    console.log();
+    // create an object to hold name and score
+    var gameScoreObj = {
+        name: "placeholder",
+        score: quizScore,
+    }
+    // push the object to highScoresArray
+    highScoresArray.push(gameScoreObj);
 
+    localStorage.setItem('highscores', JSON.stringify(highScoresArray));
 
-var highScoresArray = [];
+    // showScores();
+}
 
-localStorage.setItem('highscores', JSON.stringify(highScoresArray));
+function showScores() {
+    endGameDiv.innerHTML = "";
+    // get high score array from local storage
+    localStorage.getItem('highscores', JSON.stringify(highScoresArray));
+    // make html to show name and score
+    var scoresNameHeading = document.createElement("h2");
+    scoresNameHeading.innerHTML = "Name: " + highScoresArray[0].name;
+    var scoresScoreHeading = document.createElement("h2");
+    scoresScoreHeading.innerHTML = "Score: " + highScoresArray[0].score;
+    highScoresDiv.append(scoresNameHeading, scoresScoreHeading);
+    
+}
+
+if (userInitialsSubmit) {
+    userInitialsSubmit.addEventListener("click", saveStuff);
+
+}
 
 quizContentEl.addEventListener("click", createQuizContent);
-// quizQuestionDiv.addEventListener("click", "button", clickHandler);
+
+
+
