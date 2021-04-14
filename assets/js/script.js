@@ -8,7 +8,9 @@ var endGameDiv = document.getElementById('end-game-div');
 
 var highScoresDiv = document.getElementById('high-scores-div');
 
-var questionNumber = 0
+
+
+var questionNumber = 0;
 
 var timeLeft = 50;
 
@@ -16,9 +18,11 @@ var quizScore = 0;
 
 var timerFunction;
 
+var playThroughNumber = 0;
+
 var highScoresArray = [];
 
-
+console.log("playThroughNumber: " + playThroughNumber);
 
 // create array to store questions
 var quizQuestionsArray = [
@@ -34,10 +38,10 @@ var quizQuestionsArray = [
     },
     {
         question: "What is the correct syntax to create an HTML element?",
-        choices: ["var blank = document.Element('h2');", 
-        "var blank = createEl h1", 
-        "Nike, Just Do It", 
-        "var blank = document.createElement('h2');"],
+        choices: ["var blank = document.Element('h2');",
+            "var blank = createEl h1",
+            "Nike, Just Do It",
+            "var blank = document.createElement('h2');"],
         correctAnswer: "3",
     },
     {
@@ -55,13 +59,13 @@ function renderQuestion() {
         var quizQuestionEl = document.createElement("h2");
         // create choice buttons
         var choiceAEl = document.createElement("button");
-        
+
         var choiceBEl = document.createElement("button");
-        
+
         var choiceCEl = document.createElement("button");
-        
+
         var choiceDEl = document.createElement("button");
-        
+
         choiceAEl.innerHTML = quizQuestionsArray[questionNumber].choices[0];
         choiceAEl.setAttribute('data-choice', 0);
         choiceBEl.innerHTML = quizQuestionsArray[questionNumber].choices[1];
@@ -82,20 +86,20 @@ function renderQuestion() {
     else {
         endGame();
     }
-    
+
 
 }
 
 function clickHandler(event) {
-    console.log(quizQuestionsArray[questionNumber].correctAnswer);
+    // console.log(quizQuestionsArray[questionNumber].correctAnswer);
     var userAnswer = event.target.getAttribute('data-choice');
-    console.log(userAnswer);
+    // console.log(userAnswer);
     if (quizQuestionsArray[questionNumber].correctAnswer === userAnswer) {
-        console.log('correct!');
+        // console.log('correct!');
         quizScore = quizScore + 15;
     }
     else {
-        console.log('incorrect!');
+        // console.log('incorrect!');
         timeLeft = timeLeft - 10;
     }
     // console.log("worked");
@@ -145,8 +149,9 @@ var endGame = function () {
     quizQuestionDiv.innerHTML = "";
     // create html elements
     var finalScore = document.createElement("h2");
-    finalScore.innerHTML = "Your score was " + quizScore;
+    finalScore.innerHTML = "Your score was " + quizScore + " out of 60!";
     var saveScoreForm = document.createElement("form");
+    saveScoreForm.setAttribute("id", "initials-form");
     var userInitialsLabel = document.createElement("label");
     userInitialsLabel.setAttribute("for", "initials");
     userInitialsLabel.innerHTML = "Enter your initials to save your score:";
@@ -155,31 +160,36 @@ var endGame = function () {
     userInitialsInput.setAttribute("id", "initials");
     userInitialsInput.setAttribute("name", "initials");
     var userInitialsSubmit = document.createElement("input");
+    userInitialsSubmit.setAttribute("id", "btn-submit-score");
     userInitialsSubmit.setAttribute("type", "submit");
     userInitialsSubmit.setAttribute("value", "Submit");
-    
+
     // append finalScore to EndGameDiv, then append the form's input and label to the form, and the form to endGameDiv
     endGameDiv.appendChild(finalScore);
     saveScoreForm.append(userInitialsLabel, userInitialsInput, userInitialsSubmit);
     endGameDiv.appendChild(saveScoreForm);
 
     
-    // userInitialsSubmit.addEventListener("click", saveStuff());
+
 }
 
+
+
 function saveStuff() {
-    console.log();
+    var input = document.getElementById("initials");
+    var userName = input.value;
     // create an object to hold name and score
     var gameScoreObj = {
-        name: "placeholder",
+        name: userName,
         score: quizScore,
+        attemptNumber: playThroughNumber,
     }
     // push the object to highScoresArray
     highScoresArray.push(gameScoreObj);
 
     localStorage.setItem('highscores', JSON.stringify(highScoresArray));
 
-    // showScores();
+    showScores();
 }
 
 function showScores() {
@@ -187,20 +197,30 @@ function showScores() {
     // get high score array from local storage
     localStorage.getItem('highscores', JSON.stringify(highScoresArray));
     // make html to show name and score
-    var scoresNameHeading = document.createElement("h2");
-    scoresNameHeading.innerHTML = "Name: " + highScoresArray[0].name;
-    var scoresScoreHeading = document.createElement("h2");
-    scoresScoreHeading.innerHTML = "Score: " + highScoresArray[0].score;
-    highScoresDiv.append(scoresNameHeading, scoresScoreHeading);
+    var highScoreHeadingEl = document.createElement("h2");
+    highScoreHeadingEl.innerHTML = "List of Scores";
+    var highScoresListEl = document.createElement("ul");
+    var highScoreEl = document.createElement("li");
+    highScoreEl.innerHTML = "Name: " + highScoresArray[playThroughNumber].name + "<br/>" + "Score: " + highScoresArray[playThroughNumber].score;
     
+
+
+    highScoresDiv.appendChild(highScoreHeadingEl);
+    highScoresDiv.appendChild(highScoresListEl);
+    highScoresListEl.appendChild(highScoreEl);
+    
+
 }
 
-if (userInitialsSubmit) {
-    userInitialsSubmit.addEventListener("click", saveStuff);
 
-}
+
+document.getElementById("end-game-div").addEventListener("click", function (e) {
+    if (e.target && e.target.id == "btn-submit-score") {
+        e.preventDefault();
+        saveStuff();
+        
+    }
+});
 
 quizContentEl.addEventListener("click", createQuizContent);
-
-
 
