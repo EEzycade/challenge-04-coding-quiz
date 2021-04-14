@@ -8,7 +8,7 @@ var endGameDiv = document.getElementById('end-game-div');
 
 var highScoresDiv = document.getElementById('high-scores-div');
 
-
+var highScoresArray = [];
 
 var questionNumber = 0;
 
@@ -20,7 +20,7 @@ var timerFunction;
 
 var playThroughNumber = 0;
 
-var highScoresArray = [];
+
 
 console.log("playThroughNumber: " + playThroughNumber);
 
@@ -169,7 +169,7 @@ var endGame = function () {
     saveScoreForm.append(userInitialsLabel, userInitialsInput, userInitialsSubmit);
     endGameDiv.appendChild(saveScoreForm);
 
-    
+
 
 }
 
@@ -193,32 +193,58 @@ function saveStuff() {
 }
 
 function showScores() {
+
+
     endGameDiv.innerHTML = "";
-    // get high score array from local storage
-    localStorage.getItem('highscores', JSON.stringify(highScoresArray));
-    // make html to show name and score
     var highScoreHeadingEl = document.createElement("h2");
     highScoreHeadingEl.innerHTML = "List of Scores";
     var highScoresListEl = document.createElement("ul");
-    var highScoreEl = document.createElement("li");
-    highScoreEl.innerHTML = "Name: " + highScoresArray[playThroughNumber].name + "<br/>" + "Score: " + highScoresArray[playThroughNumber].score;
-    
-
-
     highScoresDiv.appendChild(highScoreHeadingEl);
-    highScoresDiv.appendChild(highScoresListEl);
-    highScoresListEl.appendChild(highScoreEl);
-    
+        highScoresDiv.appendChild(highScoresListEl);
+    // get high score array from local storage
+    localStorage.getItem('highscores', JSON.stringify(highScoresArray));
+    for (var i = 0; i < highScoresArray.length; i++) {
+        // make html to show name and score
 
+        var highScoreEl = document.createElement("li");
+        highScoreEl.innerHTML = "Name: " + highScoresArray[i].name + "<br/>" + "Score: " + highScoresArray[i].score;
+
+        
+        highScoresListEl.appendChild(highScoreEl);
+        
+    }
+
+    var playAgainButton = document.createElement("button");
+    playAgainButton.setAttribute("id", "play-again-btn");
+    playAgainButton.innerHTML = "Play Again";
+    highScoresDiv.appendChild(playAgainButton);
 }
 
+function playAgain() {
+    endGameDiv.innerHTML = "";
+    playThroughNumber++;
+    questionNumber = 0;
+    quizScore = 0;
+    createQuizContent();
+    console.log("playThroughNumber: " + playThroughNumber);
+}
+
+document.getElementById("high-scores-div").addEventListener("click", function (e) {
+    if (e.target && e.target.id == "play-again-btn") {
+        // endGameDiv.innerHTML = "";
+        highScoresDiv.innerHTML = "";
+        e.preventDefault();
+        playAgain();
+
+    }
+});
 
 
 document.getElementById("end-game-div").addEventListener("click", function (e) {
     if (e.target && e.target.id == "btn-submit-score") {
         e.preventDefault();
         saveStuff();
-        
+
     }
 });
 
